@@ -6,8 +6,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
@@ -21,7 +19,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
@@ -30,6 +27,7 @@ import androidx.navigation.compose.rememberNavController
 import com.slas.healthendar.ui.elements.FloatingAddButton
 import com.slas.healthendar.ui.navigation.NavItem
 import com.slas.healthendar.ui.navigation.TabView
+import com.slas.healthendar.ui.navigation.newActivity
 import com.slas.healthendar.ui.theme.HealthEndarTheme
 import com.slas.healthendar.ui.theme.Typography
 import com.slas.healthendar.ui.view.CalendarFragment
@@ -82,7 +80,10 @@ class MainActivity : ComponentActivity() {
                         )
                     },
                     floatingActionButton = {
-                        FloatingAddButton(context = this)
+                        FloatingAddButton(context = this) { newActivity(
+                            context = this,
+                            newActivity = AddVisitActivity::class.java
+                        ) }
                     },
                     modifier = Modifier
                         .background(MaterialTheme.colorScheme.secondaryContainer)

@@ -44,10 +44,13 @@ fun CalendarFragment(
                         ContextThemeWrapper(
                             it,
                             androidx.appcompat.R.style.Base_Theme_AppCompat_Light
-                        )
+                        ),
+
                     )
                 } else {
-                    CalendarView(it)
+                    CalendarView(it).also {
+//                        it.setOnDateChangeListener
+                    }
                 }
             },
             modifier = Modifier
