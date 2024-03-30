@@ -1,6 +1,7 @@
 package com.slas.healthendar.ui
 
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -25,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.slas.healthendar.R
 import com.slas.healthendar.ui.theme.HealthEndarTheme
 
 class MainActivity : ComponentActivity() {
@@ -45,6 +47,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     CounterText()
                     IncrementButton()
+
                 }
             }
         }
