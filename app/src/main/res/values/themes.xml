@@ -13,4 +13,14 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+<!--    <style name="Theme.Custom">-->
+<!--        <item name="android:calendarViewStyle">@style/Widget.CalendarView.Custom.Light</item>-->
+<!--    </style>-->
+
+<!--    <style name="Widget.CalendarView.Custom.Light" parent="android:Widget.CalendarView">-->
+<!--        <item name="android:focusedMonthDateColor">@color/cs_textcolor</item>-->
+<!--        <item name="android:unfocusedMonthDateColor">@color/black</item>-->
+<!--        <item name="android:weekDayTextAppearance">@style/TextAppearance.AppCompat.Medium</item>-->
+<!--    </style>-->
 </resources>
