@@ -13,6 +13,11 @@
         android:theme="@style/Theme.HealthEndar"
         tools:targetApi="31">
         <activity
+            android:name=".ui.VisitActivity"
+            android:exported="false"
+            android:label="@string/title_activity_visit"
+            android:theme="@style/Theme.HealthEndar" />
+        <activity
             android:name=".ui.AddVisitActivity"
             android:exported="false"
             android:label="@string/title_activity_add_visit"

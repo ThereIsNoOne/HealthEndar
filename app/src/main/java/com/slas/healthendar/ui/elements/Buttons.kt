@@ -2,8 +2,10 @@ package com.slas.healthendar.ui.elements
 
 import android.content.Context
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Row
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -16,10 +18,11 @@ import com.slas.healthendar.R
 
 @Composable
 fun FloatingAddButton(context: Context, onClick: () -> Unit) {
-    FloatingActionButton(
+    ExtendedFloatingActionButton(
         onClick = onClick,
         modifier = Modifier
     ) {
+        Text(text = "Add visit")
         Icon(
             Icons.Filled.Add,
             modifier = Modifier

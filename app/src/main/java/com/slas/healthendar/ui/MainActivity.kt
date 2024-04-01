@@ -48,7 +48,7 @@ class MainActivity : ComponentActivity() {
             val calendarTab = NavItem("Calendar", Icons.Outlined.DateRange, Icons.Filled.DateRange)
             val todayTab = NavItem("Today", Icons.Outlined.Star, Icons.Filled.Star)
             val remindersTab =
-                NavItem("Reminders", Icons.Outlined.Notifications, Icons.Filled.Notifications)
+                NavItem("Reminders", Icons.Outlined.Notifications, Icons.Filled.Notifications, count = 3)
 
             val navItemsList = listOf(calendarTab, todayTab, remindersTab)
 
@@ -95,10 +95,10 @@ class MainActivity : ComponentActivity() {
                             startDestination = calendarTab.title
                         ) {
                             composable(calendarTab.title) {
-                                CalendarFragment(darkTheme)
+                                CalendarFragment(this@MainActivity, darkTheme)
                             }
                             composable(todayTab.title) {
-                                TodayFragment()
+                                TodayFragment(this@MainActivity)
                             }
                             composable(remindersTab.title) {
                                 RemindersFragment()

@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import com.slas.healthendar.ui.MainActivity
 import com.slas.healthendar.ui.elements.CancelButton
 import com.slas.healthendar.ui.elements.OkButton
+import com.slas.healthendar.ui.elements.TimeLabel
 import com.slas.healthendar.ui.elements.TimePickerDialog
 import com.slas.healthendar.ui.navigation.newActivity
 import com.slas.healthendar.ui.icon.rememberAlarmAdd
@@ -51,6 +52,9 @@ fun AddVisitFragment(context: Context) {
         mutableStateOf("")
     }
 
+    var localization by remember {
+        mutableStateOf("")
+    }
     var time by remember {
         mutableIntStateOf(0)
     }
@@ -84,7 +88,7 @@ fun AddVisitFragment(context: Context) {
         OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth(),
-            label = { Text(text = "Specializatino") },
+            label = { Text(text = "Specialization") },
             value = specialization,
             onValueChange = { specialization = it })
 
@@ -113,6 +117,13 @@ fun AddVisitFragment(context: Context) {
             label = { Text(text = "E-Mail") },
             value = email,
             onValueChange = { email = it })
+
+        OutlinedTextField(
+            modifier = Modifier
+                .fillMaxWidth(),
+            label = { Text(text = "Localization") },
+            value = localization,
+            onValueChange = { localization = it })
 
         Spacer(modifier = Modifier.weight(1f))
         Row(
@@ -188,7 +199,7 @@ fun TimeInput(time: Int, onClick: () -> Unit) {
         Spacer(modifier = Modifier.weight(0.1f))
 
         Text(
-            text = "${time / 60}:${time % 60}",
+            text = TimeLabel(time),
             fontWeight = Typography.labelLarge.fontWeight,
             fontSize = Typography.labelLarge.fontSize,
             fontFamily = Typography.labelLarge.fontFamily,
@@ -228,7 +239,11 @@ fun DateInput(date: Calendar, onClick: () -> Unit) {
         Spacer(modifier = Modifier.weight(0.11f))
 
         Text(
-            text = "${date.get(Calendar.DAY_OF_MONTH)}.${date.get(Calendar.MONTH)}.${date.get(Calendar.YEAR)}",
+            text = "${date.get(Calendar.DAY_OF_MONTH)}.${date.get(Calendar.MONTH) + 1}.${
+                date.get(
+                    Calendar.YEAR
+                )
+            }",
             fontWeight = Typography.labelLarge.fontWeight,
             fontSize = Typography.labelLarge.fontSize,
             fontFamily = Typography.labelLarge.fontFamily,

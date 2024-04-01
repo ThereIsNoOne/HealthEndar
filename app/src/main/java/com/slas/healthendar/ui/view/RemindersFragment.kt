@@ -23,6 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.slas.healthendar.entity.ReminderDto
+import com.slas.healthendar.ui.elements.ExpandedItem
+import com.slas.healthendar.ui.elements.FoldedItem
 import com.slas.healthendar.ui.theme.Typography
 
 
@@ -67,93 +69,3 @@ fun RemindersFragment() {
     }
 }
 
-@Composable
-fun ExpandedItem(
-    item: ReminderDto,
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.primaryContainer)
-            .wrapContentHeight()
-            .padding(10.dp)
-    ) {
-        Text(
-            text = item.title,
-            fontWeight = Typography.titleMedium.fontWeight,
-            fontSize = Typography.titleMedium.fontSize,
-            fontFamily = Typography.titleMedium.fontFamily,
-            color = MaterialTheme.colorScheme.onPrimary
-        )
-
-        Text(
-            text = item.note,
-            fontWeight = Typography.labelMedium.fontWeight,
-            fontSize = Typography.labelMedium.fontSize,
-            fontFamily = Typography.labelMedium.fontFamily,
-            color = MaterialTheme.colorScheme.onPrimary
-        )
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp)
-        ) {
-            Button(
-                onClick = { },
-                modifier = Modifier
-                    .weight(1f)
-                    .clip(shape = RoundedCornerShape(20.dp))
-                    .background(MaterialTheme.colorScheme.secondaryContainer)
-                    .wrapContentHeight()
-            ) {
-                Text(
-                    text = "Remind me later",
-                    fontWeight = Typography.labelLarge.fontWeight,
-                    fontSize = Typography.labelLarge.fontSize,
-                    fontFamily = Typography.labelLarge.fontFamily,
-                    color = MaterialTheme.colorScheme.onTertiary
-                )
-            }
-
-            Box(modifier = Modifier.weight(0.1f))
-
-            Button(
-                onClick = { },
-                modifier = Modifier
-                    .weight(1f)
-                    .clip(shape = RoundedCornerShape(20.dp))
-                    .background(MaterialTheme.colorScheme.secondaryContainer)
-                    .wrapContentHeight()
-            ) {
-                Text(
-                    text = "Done",
-                    fontWeight = Typography.labelLarge.fontWeight,
-                    fontSize = Typography.labelLarge.fontSize,
-                    fontFamily = Typography.labelLarge.fontFamily,
-                    color = MaterialTheme.colorScheme.onTertiary
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun FoldedItem(
-    item: ReminderDto,
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.primaryContainer)
-            .padding(10.dp)
-    ) {
-        Text(
-            text = item.title,
-            fontWeight = Typography.titleMedium.fontWeight,
-            fontSize = Typography.titleMedium.fontSize,
-            fontFamily = Typography.titleMedium.fontFamily,
-            color = MaterialTheme.colorScheme.onPrimary
-        )
-    }
-}
