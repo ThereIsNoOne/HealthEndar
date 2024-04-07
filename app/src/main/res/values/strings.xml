@@ -5,4 +5,6 @@
     <string name="Calendar">Calendar</string>
     <string name="add">Add</string>
     <string name="Appointments">Appointments</string>
+    <string name="Today"> Today</string>
+    <string name="Reminders"> Reminders</string>
 </resources>
