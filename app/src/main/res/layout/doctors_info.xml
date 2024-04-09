@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#FFFBF8"
     android:visibility="visible"
-    tools:context=".ui.MainActivity2">
+    tools:context=".ui.MainActivity">
 
 
     <com.google.android.material.appbar.AppBarLayout

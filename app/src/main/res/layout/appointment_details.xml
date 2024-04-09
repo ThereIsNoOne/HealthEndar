@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#FFFBF8"
     android:visibility="visible"
-    tools:context=".ui.MainActivity2">
+    tools:context=".ui.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         app:layout_constraintTop_toTopOf="parent"
@@ -96,7 +96,7 @@
         android:layout_width="124dp"
         android:layout_height="33dp"
         android:layout_marginTop="64dp"
-        android:fontFamily="@font/DroidSansMono"
+        android:fontFamily="@font/droidsansmono"
         android:text="Date"
         android:textColor="#ff716B6B"
         android:textSize="20sp"
@@ -112,7 +112,7 @@
         android:layout_width="117dp"
         android:layout_height="39dp"
         android:layout_marginBottom="48dp"
-        android:fontFamily="@font/DroidSansMono"
+        android:fontFamily="@font/droidsansmono"
         android:text="Hour"
         android:textColor="#ff716B6B"
         android:textSize="20sp"
