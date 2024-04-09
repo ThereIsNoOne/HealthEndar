@@ -17,4 +17,6 @@
     <string name="hour">Hour</string>
     <string name="email">email</string>
     <string name="phone">Phone</string>
+    <string name="remind_me_later">Remind me later</string>
+    <string name="done">done</string>
 </resources>

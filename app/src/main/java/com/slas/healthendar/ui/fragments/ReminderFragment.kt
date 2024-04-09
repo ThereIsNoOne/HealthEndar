@@ -5,22 +5,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.slas.healthendar.R
+import com.slas.healthendar.entity.ReminderDto
+import com.slas.healthendar.ui.MainActivity
+import com.slas.healthendar.ui.adapters.ReminderAdapter
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ReminderFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+val items = listOf(
+    ReminderDto("One", "Descrp"),
+    ReminderDto("One", "Descrp"),
+    ReminderDto("One", "Descrp"),
+    ReminderDto("One", "Descrp"),
+    ReminderDto("One", "Descrp"),
+    ReminderDto("One", "Descrp"),
+    ReminderDto("One", "Descrp"),
+    ReminderDto("One", "Descrp")
+)
 class ReminderFragment : Fragment() {
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -28,21 +31,16 @@ class ReminderFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_reminder, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Test.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic fun newInstance(param1: String, param2: String) =
-                ReminderFragment().apply {
-                    arguments = Bundle().apply {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setRecyclerView()
+    }
 
-                    }
-                }
+    private fun setRecyclerView() {
+        (activity as? MainActivity)?.let {
+            val recyclerView: RecyclerView = it.findViewById(R.id.reminders_items_view)
+            recyclerView.adapter = ReminderAdapter(items)
+            recyclerView.layoutManager = LinearLayoutManager(it)
+        }
     }
 }

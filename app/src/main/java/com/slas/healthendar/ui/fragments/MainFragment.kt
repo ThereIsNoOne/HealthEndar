@@ -13,6 +13,7 @@ import com.slas.healthendar.R
 import com.slas.healthendar.entity.VisitDto
 import com.slas.healthendar.ui.AddVisitActivity
 import com.slas.healthendar.ui.MainActivity
+import com.slas.healthendar.ui.VisitActivity
 import com.slas.healthendar.ui.adapters.CalendarDayAdapter
 
 val mockData = listOf(
@@ -54,38 +55,35 @@ val mockData = listOf(
     )
 )
 
-/**
- * A simple [Fragment] subclass.
- * Use the [MainFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class MainFragment : Fragment() {
 
-    private lateinit var viewOnCreate: View
+class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        this.viewOnCreate = view;
         setButton()
         setRecyclerView()
     }
 
     private fun setRecyclerView() {
-        (activity as? MainActivity)?.let {
-            val recyclerView: RecyclerView = it.findViewById(R.id.calendar_items_view)
-            recyclerView.adapter = CalendarDayAdapter(mockData)
-            recyclerView.layoutManager = LinearLayoutManager(it)
+        (activity as? MainActivity)?.let { mainActivity ->
+            val recyclerView: RecyclerView = mainActivity.findViewById(R.id.calendar_items_view)
+
+            recyclerView.adapter = CalendarDayAdapter(mockData) {
+                requireActivity().startActivity(
+                    Intent(
+                        mainActivity,
+                        VisitActivity::class.java
+                    ).also { intent ->
+                        intent.putExtra("item", it)
+                    })
+            }
+
+            recyclerView.layoutManager = LinearLayoutManager(mainActivity)
         }
     }
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     private fun setButton() {
-
         (activity as? MainActivity)?.let {
             val addButton: MaterialButton = it.findViewById(R.id.add_visit_button)
             addButton.setOnClickListener {
