@@ -27,7 +27,7 @@ fun FloatingAddButton(context: Context, onClick: () -> Unit) {
             Icons.Filled.Add,
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.primaryContainer),
-            contentDescription = ContextCompat.getString(context, R.string.add_appointment)
+            contentDescription = "Add appointment"
         )
     }
 }

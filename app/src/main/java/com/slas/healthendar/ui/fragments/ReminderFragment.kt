@@ -1,4 +1,4 @@
-package com.slas.healthendar.ui
+package com.slas.healthendar.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

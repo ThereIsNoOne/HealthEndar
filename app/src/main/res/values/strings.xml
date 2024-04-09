@@ -9,4 +9,12 @@
     <string name="Reminders"> Reminders</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_visit">VisitActiviity</string>
+    <string name="title_activity_add_visit">AddVisityActivity</string>
+    <string name="doctor_specialization">Doctor specialization</string>
+    <string name="doctor_name_surname">Doctor name, surname</string>
+    <string name="date">Date</string>
+    <string name="hour">Hour</string>
+    <string name="email">email</string>
+    <string name="phone">Phone</string>
 </resources>
