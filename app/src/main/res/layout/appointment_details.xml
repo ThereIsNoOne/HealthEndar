@@ -27,8 +27,9 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/doctor_specialization_textbox"
+        style="?attr/textInputOutlinedStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin"
@@ -38,21 +39,32 @@
         app:layout_constraintBottom_toTopOf="@+id/doctor_name_textbox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_wrapper" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_wrapper">
 
-    <EditText
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/doctor_name_textbox"
+        style="?attr/textInputOutlinedStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/doctor_name_surname"
         android:inputType="text"
         app:layout_constraintBottom_toTopOf="@id/date_text_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/doctor_specialization_textbox"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@id/doctor_specialization_textbox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
     <TextView
@@ -79,10 +91,10 @@
         android:text="@string/hour"
         android:textColor="#ff716B6B"
         android:textSize="20sp"
-        app:layout_constraintHorizontal_weight="1"
         app:layout_constraintBottom_toTopOf="@+id/email_edit_text"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/set_time_button"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/date_text_view" />
 
     <com.google.android.material.button.MaterialButton
@@ -109,46 +121,57 @@
         app:layout_constraintBottom_toTopOf="@+id/email_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/time_text_view"
-        app:layout_constraintTop_toBottomOf="@id/set_date_button"/>
+        app:layout_constraintTop_toBottomOf="@id/set_date_button" />
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/email_edit_text"
+        style="?attr/textInputOutlinedStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:autofillHints=""
         android:ems="10"
-        android:inputType="textEmailAddress"
         android:hint="@string/email"
+        android:inputType="textEmailAddress"
         android:textColor="#ff716B6B"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/phone_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/time_text_view"
-        app:layout_constraintBottom_toTopOf="@id/phone_edit_text"
-        android:layout_margin="@dimen/margin"
+        app:layout_constraintTop_toBottomOf="@id/time_text_view">
 
-        android:autofillHints="" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/phone_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin"
+        android:autofillHints=""
+        style="?attr/textInputOutlinedStyle"
         android:ems="10"
-        android:inputType="phone"
         android:hint="@string/phone"
-        app:layout_constraintTop_toBottomOf="@id/email_edit_text"
+        android:inputType="phone"
         app:layout_constraintBottom_toTopOf="@id/spacer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@id/email_edit_text">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
     <Space
         android:id="@+id/spacer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintVertical_weight="5"
         android:layout_margin="@dimen/margin"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/phone_edit_text"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintVertical_weight="5" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

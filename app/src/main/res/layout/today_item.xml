@@ -2,17 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#D2DBD1"
-    android:layout_margin="@dimen/margin">
+    android:background="@drawable/rounded_bg"
+    android:layout_margin="@dimen/margin"
+    android:padding="@dimen/expanded_margin">
 
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
         android:id="@+id/today_hour_view"
         android:layout_weight="1"/>
 
     <TextView
         android:layout_width="0dp"
+        android:textColor="@color/black"
         android:layout_height="wrap_content"
         android:id="@+id/today_name_view"
         android:layout_weight="4"/>

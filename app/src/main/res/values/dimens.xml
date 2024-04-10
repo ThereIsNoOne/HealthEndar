@@ -2,4 +2,5 @@
 <resources>
     <dimen name="margin">5dp</dimen>
     <dimen name="maxAppBarHeight">24dp</dimen>
+    <dimen name="expanded_margin">15dp</dimen>
 </resources>
