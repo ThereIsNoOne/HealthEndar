@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
 import com.slas.healthendar.R
@@ -20,6 +21,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setNavBar()
 
+        val topBar: MaterialToolbar = findViewById(R.id.toolbar)
+
+        topBar.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.login_button -> {
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    true
+                }
+
+                else -> true
+            }
+        }
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.add_appointment)) { v, insets ->

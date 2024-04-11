@@ -19,4 +19,7 @@
     <string name="phone">Phone</string>
     <string name="remind_me_later">Remind me later</string>
     <string name="done">done</string>
+    <string name="login">Login</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_register">RegisterActivity</string>
 </resources>
