@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "368456454092",
+    "project_id": "helthendar",
+    "storage_bucket": "helthendar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:368456454092:android:8b710584e3fa1e73d6d769",
+        "android_client_info": {
+          "package_name": "com.slas.helthendar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJ5NuSAXJEHhTEkF3ZOyxjHwEBPwtl0GQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
