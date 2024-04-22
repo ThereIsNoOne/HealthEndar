@@ -22,4 +22,8 @@
     <string name="login">Login</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_register">RegisterActivity</string>
+    <string name="email_is_not_valid">Email is not valid</string>
+    <string name="password_wrong">Password must contain at least 8 chars and one number and one letter</string>
+    <string name="password_repeated_pass">Password and repeated password must be the same</string>
+    <string name="could_not_register_user">Could not register user</string>
 </resources>
