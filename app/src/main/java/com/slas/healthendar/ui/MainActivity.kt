@@ -2,6 +2,7 @@ package com.slas.healthendar.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -19,6 +20,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val userId = intent.getStringExtra("uid")
+
+        if (userId != null) {
+            Log.d("userId", userId)
+        }
         setNavBar()
 
         val topBar: MaterialToolbar = findViewById(R.id.toolbar)

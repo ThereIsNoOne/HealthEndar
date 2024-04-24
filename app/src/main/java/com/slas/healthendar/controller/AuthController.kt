@@ -1,6 +1,7 @@
 package com.slas.healthendar.controller
 
 import com.slas.healthendar.computation.auth.IAuthService
+import com.slas.healthendar.entity.LoginCredentials
 import com.slas.healthendar.entity.OperationResult
 import com.slas.healthendar.entity.RegisterCredentials
 
@@ -13,5 +14,13 @@ class AuthController(
         onError: (String) -> Unit
     ) {
         service.registerUser(credentials, onSuccess, onError)
+    }
+
+    fun loginUser(
+        loginCredentials: LoginCredentials,
+        onWrongCredentials: (String) -> Unit,
+        onValidCredentials: (String) -> Unit
+    ) {
+        service.loginUser(loginCredentials, onWrongCredentials, onValidCredentials)
     }
 }

@@ -19,6 +19,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -26,6 +28,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,10 +36,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import com.slas.healthendar.computation.auth.FirebaseAuthService
+import com.slas.healthendar.controller.AuthController
+import com.slas.healthendar.entity.LoginCredentials
 import com.slas.healthendar.ui.theme.HealthEndarTheme
 import com.slas.healthendar.ui.theme.Typography
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 class LoginActivity : ComponentActivity() {
+
+    private val authController = AuthController(FirebaseAuthService())
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,8 +54,14 @@ class LoginActivity : ComponentActivity() {
 
 
         setContent {
+
+
+            val snackbarHostState = remember { SnackbarHostState() }
+            val scope = rememberCoroutineScope()
+
             HealthEndarTheme(darkTheme = false, dynamicColor = false) {
                 Scaffold(
+                    snackbarHost = { SnackbarHost(snackbarHostState) },
                     topBar = {
                         TopAppBar(
                             title = {
@@ -66,7 +82,7 @@ class LoginActivity : ComponentActivity() {
                         .background(MaterialTheme.colorScheme.secondaryContainer),
                 ) {
                     Box(modifier = Modifier.padding(it)) {
-                        LoginView()
+                        LoginView(scope, snackbarHostState)
 
                     }
                 }
@@ -75,7 +91,7 @@ class LoginActivity : ComponentActivity() {
     }
 
     @Composable
-    private fun LoginView() {
+    private fun LoginView(scope: CoroutineScope, snackbarHostState: SnackbarHostState) {
         var login by remember {
             mutableStateOf("")
         }
@@ -99,7 +115,7 @@ class LoginActivity : ComponentActivity() {
             OutlinedTextField(
                 modifier = Modifier
                     .fillMaxWidth(),
-                label = { Text(text = "Login") },
+                label = { Text(text = "E-Mail") },
                 singleLine = true,
                 value = login,
                 onValueChange = { login = it })
@@ -115,11 +131,26 @@ class LoginActivity : ComponentActivity() {
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
             )
             Button(onClick = {
-                startActivity(
-                    Intent(
-                        this@LoginActivity,
-                        MainActivity::class.java
-                    )
+                onLogin(
+                    LoginCredentials(login, password),
+                    onWrongCredentials = {
+                        scope.launch {
+                            snackbarHostState.showSnackbar(
+                                it
+                            )
+                        }
+                    },
+                    onValidCredentials = { uid ->
+                        startActivity(
+                            Intent(
+                                this@LoginActivity,
+                                MainActivity::class.java
+                            ).also {
+                                it.putExtra("uid", uid)
+                            }
+                        )
+                        finish()
+                    }
                 )
             }) {
                 Text(text = "Login")
@@ -131,7 +162,8 @@ class LoginActivity : ComponentActivity() {
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
-                Text(text = "Don't have an account?",
+                Text(
+                    text = "Don't have an account?",
                     fontWeight = Typography.labelLarge.fontWeight,
                     fontSize = Typography.labelLarge.fontSize,
                     fontFamily = Typography.labelLarge.fontFamily,
@@ -154,6 +186,24 @@ class LoginActivity : ComponentActivity() {
             Spacer(modifier = Modifier.weight(1f))
 
         }
+    }
+
+    private fun onLogin(
+        loginCredentials: LoginCredentials,
+        onWrongCredentials: (String) -> Unit,
+        onValidCredentials: (String) -> Unit
+    ) {
+        if (loginCredentials.email.isBlank()) {
+            onWrongCredentials("Login is empty")
+            return
+        }
+
+        if (loginCredentials.password.isBlank()) {
+            onWrongCredentials("Password is empty")
+            return
+        }
+
+        authController.loginUser(loginCredentials, onWrongCredentials, onValidCredentials)
     }
 
 
