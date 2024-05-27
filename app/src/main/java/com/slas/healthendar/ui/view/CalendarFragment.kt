@@ -2,7 +2,6 @@ package com.slas.healthendar.ui.view
 
 import android.content.Context
 import android.view.ContextThemeWrapper
-import android.view.RoundedCorner
 import android.widget.CalendarView
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -22,11 +21,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import com.slas.healthendar.R
-import com.slas.healthendar.entity.VisitDto
+import com.slas.healthendar.entity.Visit
 import com.slas.healthendar.ui.VisitActivity
 import com.slas.healthendar.ui.elements.TimeLabel
 import com.slas.healthendar.ui.navigation.newActivity
@@ -34,39 +31,40 @@ import com.slas.healthendar.ui.theme.Typography
 import java.util.Calendar
 
 val mockedData = listOf(
-    VisitDto(
+    Visit(
         "dr. House",
         "Neuro",
         9 * 60,
-        arrayOf(2024, 4, 24),
+        listOf(2024, 4, 24),
         "Wroclaw",
         "123456789",
         "dr.house@house.pl",
         reminderItems
     ),
-    VisitDto(
+    Visit(
         "dr. House",
         "Neuro",
         9 * 60,
-        arrayOf(2024, 4, 24),
+        listOf(2024, 4, 24),
         "Wroclaw",
         mail = "dr.house@house.pl"
     ),
-    VisitDto("dr. House", "Neuro", 9 * 60, arrayOf(2024, 4, 24), "Wroclaw", "123456789"),
-    VisitDto(
+    Visit(
+        "dr. House", "Neuro", 9 * 60, listOf(2024, 4, 24), "Wroclaw", "123456789"),
+    Visit(
         "dr. House",
         "Neuro",
         9 * 60,
-        arrayOf(2024, 4, 25),
+        listOf(2024, 4, 25),
         "Wroclaw",
         "123456789",
         "dr.house@house.pl"
     ),
-    VisitDto(
+    Visit(
         "dr. House",
         "Neuro",
         9 * 60,
-        arrayOf(2024, 4, 26),
+        listOf(2024, 4, 26),
         "Wroclaw",
         "123456789",
         "dr.house@house.pl"

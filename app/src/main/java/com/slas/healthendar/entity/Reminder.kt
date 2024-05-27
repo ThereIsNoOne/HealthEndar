@@ -2,7 +2,7 @@ package com.slas.healthendar.entity
 
 import java.io.Serializable
 
-data class ReminderDto(
-    val title: String,
-    val note: String
+data class Reminder(
+    val title: String ="",
+    val time: Float = 0f
 ) : Serializable

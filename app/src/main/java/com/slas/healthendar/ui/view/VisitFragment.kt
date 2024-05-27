@@ -29,14 +29,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import com.slas.healthendar.entity.VisitDto
+import com.slas.healthendar.entity.Visit
 import com.slas.healthendar.ui.elements.ExpandedItem
 import com.slas.healthendar.ui.elements.TimeLabel
 import com.slas.healthendar.ui.icon.ClockIcon
 import com.slas.healthendar.ui.theme.Typography
 
 @Composable
-fun VisitFragment(visit: VisitDto, dialog: @Composable () -> Unit) {
+fun VisitFragment(visit: Visit, dialog: @Composable () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -92,7 +92,7 @@ fun IconLabel(icon: ImageVector, label: String) {
 }
 
 @Composable
-private fun DoctorLabel(visit: VisitDto) {
+private fun DoctorLabel(visit: Visit) {
     Row(
         modifier = Modifier
             .fillMaxWidth(),

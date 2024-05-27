@@ -2,83 +2,88 @@ package com.slas.healthendar.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CalendarView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.slas.healthendar.R
-import com.slas.healthendar.entity.VisitDto
+import com.slas.healthendar.datastore.DataContext
 import com.slas.healthendar.ui.AddVisitActivity
 import com.slas.healthendar.ui.MainActivity
 import com.slas.healthendar.ui.VisitActivity
 import com.slas.healthendar.ui.adapters.CalendarDayAdapter
-
-val mockData = listOf(
-    VisitDto(
-        "dr. House",
-        "Neuro",
-        9 * 60,
-        arrayOf(2024, 4, 24),
-        "Wroclaw",
-        "123456789",
-        "dr.house@house.pl",
-    ),
-    VisitDto(
-        "dr. House",
-        "Neuro",
-        9 * 60,
-        arrayOf(2024, 4, 24),
-        "Wroclaw",
-        mail = "dr.house@house.pl"
-    ),
-    VisitDto("dr. House", "Neuro", 9 * 60, arrayOf(2024, 4, 24), "Wroclaw", "123456789"),
-    VisitDto(
-        "dr. House",
-        "Neuro",
-        9 * 60,
-        arrayOf(2024, 4, 25),
-        "Wroclaw",
-        "123456789",
-        "dr.house@house.pl"
-    ),
-    VisitDto(
-        "dr. House",
-        "Neuro",
-        9 * 60,
-        arrayOf(2024, 4, 26),
-        "Wroclaw",
-        "123456789",
-        "dr.house@house.pl"
-    )
-)
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class MainFragment : Fragment() {
 
+    private var selectedDate: List<Int> = DataContext.today()
+    private lateinit var adapter: CalendarDayAdapter
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        // Setup adapter
+        setAdapter()
+
+        // Fetch data for current day
+        getDataSet()
+
         setButton()
         setRecyclerView()
+
+
+        setCalendar()
+
     }
 
-    private fun setRecyclerView() {
-        (activity as? MainActivity)?.let { mainActivity ->
-            val recyclerView: RecyclerView = mainActivity.findViewById(R.id.calendar_items_view)
-
-            recyclerView.adapter = CalendarDayAdapter(mockData) {
-                requireActivity().startActivity(
-                    Intent(
-                        mainActivity,
-                        VisitActivity::class.java
-                    ).also { intent ->
-                        intent.putExtra("item", it)
-                    })
+    private fun setCalendar() {
+        (activity)?.let { mainActivity ->
+            val calendar: CalendarView = mainActivity.findViewById(R.id.calendarView)
+            calendar.setOnDateChangeListener { view, year, month, day ->
+                Log.d("DateChanged", "$day.$month.$year")
+                selectedDate = listOf(day, month, year)
+                getDataSet()
             }
+        }
+    }
 
+    private fun setAdapter() {
+        (activity as? MainActivity?)?.let { mainActivity ->
+            adapter = CalendarDayAdapter {
+                requireActivity().startActivity(Intent(
+                    mainActivity, VisitActivity::class.java
+                ).also { intent ->
+                    intent.putExtra("item", it)
+                })
+            }
+        }
+    }
+
+    private fun getDataSet() {
+        GlobalScope.launch {
+            DataContext.databaseController.getVisit(date = selectedDate, onSuccess = {
+                adapter.setVisits(it)
+            }, onError = {
+                Log.d("Fetched", it)
+            })
+        }
+    }
+
+
+    private fun setRecyclerView() {
+        (activity)?.let { mainActivity ->
+            val recyclerView: RecyclerView = mainActivity.findViewById(R.id.calendar_items_view)
+            recyclerView.adapter = adapter
             recyclerView.layoutManager = LinearLayoutManager(mainActivity)
+
         }
     }
 
@@ -95,8 +100,7 @@ class MainFragment : Fragment() {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_main, container, false)

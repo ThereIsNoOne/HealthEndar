@@ -1,6 +1,5 @@
 package com.slas.healthendar.computation.auth
 
-import com.slas.healthendar.entity.OperationResult
 import com.slas.healthendar.entity.RegisterCredentials
 import com.google.firebase.auth.FirebaseAuth
 import com.slas.healthendar.entity.LoginCredentials

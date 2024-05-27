@@ -1,16 +1,19 @@
 package com.slas.healthendar.ui.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.slas.healthendar.R
-import com.slas.healthendar.entity.VisitDto
+import com.slas.healthendar.entity.Visit
 import com.slas.healthendar.ui.elements.TimeLabel
 
 
-class CalendarDayAdapter(private val visits: List<VisitDto>, private val onClick: (VisitDto) -> Unit) : RecyclerView.Adapter<CalendarDayAdapter.ViewHolder>() {
+class CalendarDayAdapter(private val onClick: (Visit) -> Unit) : RecyclerView.Adapter<CalendarDayAdapter.ViewHolder>() {
+
+    private var visits: Array<Visit> = arrayOf()
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -35,6 +38,12 @@ class CalendarDayAdapter(private val visits: List<VisitDto>, private val onClick
             .inflate(R.layout.calendar_item, parent, false)
 
         return ViewHolder(view)
+    }
+
+    @SuppressLint("NotifyDataSetChanged")   // Whole data set changes
+    fun setVisits(data: Array<Visit>) {
+        this.visits = data
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {

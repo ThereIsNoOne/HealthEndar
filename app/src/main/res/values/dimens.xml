@@ -3,4 +3,6 @@
     <dimen name="margin">5dp</dimen>
     <dimen name="maxAppBarHeight">24dp</dimen>
     <dimen name="expanded_margin">15dp</dimen>
+    <dimen name="text_size_calendar">24sp</dimen>
+    <dimen name="large_text_size">28sp</dimen>
 </resources>

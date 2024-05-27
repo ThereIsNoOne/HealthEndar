@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.slas.healthendar.R
-import com.slas.healthendar.entity.VisitDto
+import com.slas.healthendar.entity.Visit
 import com.slas.healthendar.ui.elements.TimeLabel
 
-class TodayAdapter(private val visits: List<VisitDto>, private val onClick: (VisitDto) -> Unit) :
+class TodayAdapter(private val visits: Array<Visit>, private val onClick: (Visit) -> Unit) :
     RecyclerView.Adapter<TodayAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

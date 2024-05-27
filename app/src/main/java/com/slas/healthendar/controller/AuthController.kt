@@ -2,7 +2,6 @@ package com.slas.healthendar.controller
 
 import com.slas.healthendar.computation.auth.IAuthService
 import com.slas.healthendar.entity.LoginCredentials
-import com.slas.healthendar.entity.OperationResult
 import com.slas.healthendar.entity.RegisterCredentials
 
 class AuthController(

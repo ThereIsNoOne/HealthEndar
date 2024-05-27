@@ -1,7 +1,6 @@
 package com.slas.healthendar.ui
 
 import android.os.Bundle
-import android.widget.ToggleButton
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -9,14 +8,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -36,58 +32,58 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import com.slas.healthendar.entity.VisitDto
+import com.slas.healthendar.entity.Reminder
+import com.slas.healthendar.entity.Visit
 import com.slas.healthendar.ui.theme.HealthEndarTheme
 import com.slas.healthendar.ui.theme.Typography
 import com.slas.healthendar.ui.view.VisitFragment
 
 class VisitActivity : ComponentActivity() {
+
+    private lateinit var visit: Visit
+
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Suppressed cause using API 24, therefor cannot use `getSerializable(String, class<?>)`
-        val visit: VisitDto = intent.getSerializableExtra("item") as VisitDto
+        @Suppress("DEPRECATION")
+        visit = intent.getSerializableExtra("item") as Visit
+
         super.onCreate(savedInstanceState)
         setContent {
             HealthEndarTheme(darkTheme = false, dynamicColor = false) {
                 var isDialogOpen by remember {
                     mutableStateOf(false)
                 }
-                Scaffold(
-                    topBar = {
-                        TopAppBar(
-                            title = {
-                                Text(
-                                    text = "HealthEndar",
-                                    fontFamily = Typography.titleLarge.fontFamily,
-                                    fontWeight = Typography.titleLarge.fontWeight,
-                                    fontSize = Typography.titleLarge.fontSize,
-                                    color = MaterialTheme.colorScheme.onSecondary,
-                                )
-                            },
-                            colors = TopAppBarDefaults.topAppBarColors(
-                                containerColor = MaterialTheme.colorScheme.secondaryContainer
+                Scaffold(topBar = {
+                    TopAppBar(
+                        title = {
+                            Text(
+                                text = "HealthEndar",
+                                fontFamily = Typography.titleLarge.fontFamily,
+                                fontWeight = Typography.titleLarge.fontWeight,
+                                fontSize = Typography.titleLarge.fontSize,
+                                color = MaterialTheme.colorScheme.onSecondary,
                             )
+                        }, colors = TopAppBarDefaults.topAppBarColors(
+                            containerColor = MaterialTheme.colorScheme.secondaryContainer
                         )
-                    },
-                    floatingActionButton = {
-                        FloatAddReminderButton {
-                            isDialogOpen = true
-                        }
-                    },
-                    modifier = Modifier
-                        .background(MaterialTheme.colorScheme.secondaryContainer)
+                    )
+                }, floatingActionButton = {
+                    FloatAddReminderButton {
+                        isDialogOpen = true
+                    }
+                }, modifier = Modifier.background(MaterialTheme.colorScheme.secondaryContainer)
 
                 ) {
                     Box(modifier = Modifier.padding(it)) {
                         VisitFragment(visit = visit) {
                             if (isDialogOpen) {
-                                AddReminderDialog(
-                                    onConfirm = { isDialogOpen = false },
-                                    onDismiss = { isDialogOpen = false }
-                                )
+                                AddReminderDialog(onConfirm = {title, time ->
+                                    visit.reminders += Reminder(title, time)
+
+                                    isDialogOpen = false
+                                }, onDismiss = { isDialogOpen = false })
                             }
                         }
 
@@ -98,7 +94,7 @@ class VisitActivity : ComponentActivity() {
     }
 
     @Composable
-    private fun AddReminderDialog(onConfirm: () -> Unit, onDismiss: () -> Unit) {
+    private fun AddReminderDialog(onConfirm: (String, Float) -> Unit, onDismiss: () -> Unit) {
         var title by remember {
             mutableStateOf("")
         }
@@ -113,8 +109,7 @@ class VisitActivity : ComponentActivity() {
                     .background(MaterialTheme.colorScheme.surface),
             ) {
                 Column(
-                    modifier = Modifier
-                        .padding(10.dp)
+                    modifier = Modifier.padding(10.dp)
                 ) {
                     Text(
                         text = "Add reminder",
@@ -124,9 +119,7 @@ class VisitActivity : ComponentActivity() {
                         color = MaterialTheme.colorScheme.onTertiary
                     )
 
-                    OutlinedTextField(
-                        modifier = Modifier
-                            .fillMaxWidth(),
+                    OutlinedTextField(modifier = Modifier.fillMaxWidth(),
                         label = { Text(text = "Name") },
                         value = title,
                         onValueChange = { title = it })
@@ -151,14 +144,12 @@ class VisitActivity : ComponentActivity() {
                     Text(text = decodeTime(value))
 
                     Row(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        horizontalArrangement = Arrangement.End
+                        modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End
                     ) {
                         TextButton(onClick = onDismiss) {
                             Text(text = "Cancel")
                         }
-                        TextButton(onClick = onConfirm) {
+                        TextButton(onClick = { onConfirm(title, value) }) {
                             Text(text = "Ok")
                         }
 
@@ -171,12 +162,29 @@ class VisitActivity : ComponentActivity() {
 
     private fun decodeTime(value: Float): String {
         return when (value) {
-            0f -> { "Week before" }
-            12.5f -> { "Day before" }
-            25f -> { "Hour before" }
-            37.5f -> { "30 min before" }
-            50f -> { "15 min before" }
-            else -> {"Unknown"}
+            0f -> {
+                "Week before"
+            }
+
+            12.5f -> {
+                "Day before"
+            }
+
+            25f -> {
+                "Hour before"
+            }
+
+            37.5f -> {
+                "30 min before"
+            }
+
+            50f -> {
+                "15 min before"
+            }
+
+            else -> {
+                "Unknown"
+            }
         }
     }
 
@@ -184,7 +192,8 @@ class VisitActivity : ComponentActivity() {
     private fun FloatAddReminderButton(onClick: () -> Unit) {
         FloatingActionButton(onClick = onClick) {
             Icon(
-                imageVector = Icons.Filled.Add, contentDescription = "Add reminder",
+                imageVector = Icons.Filled.Add,
+                contentDescription = "Add reminder",
                 modifier = Modifier.background(MaterialTheme.colorScheme.primaryContainer)
             )
         }

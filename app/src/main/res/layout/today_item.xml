@@ -10,12 +10,18 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
+        android:textSize="@dimen/large_text_size"
         android:id="@+id/today_hour_view"
         android:layout_weight="1"/>
+
+    <Space
+        android:layout_width="23dp"
+        android:layout_height="wrap_content"/>
 
     <TextView
         android:layout_width="0dp"
         android:textColor="@color/black"
+        android:textSize="@dimen/large_text_size"
         android:layout_height="wrap_content"
         android:id="@+id/today_name_view"
         android:layout_weight="4"/>

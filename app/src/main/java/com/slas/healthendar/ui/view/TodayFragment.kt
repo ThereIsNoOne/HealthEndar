@@ -1,10 +1,8 @@
 package com.slas.healthendar.ui.view
 
 import android.content.Context
-import androidx.activity.ComponentActivity
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -21,43 +19,40 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.slas.healthendar.entity.ReminderDto
-import com.slas.healthendar.entity.VisitDto
-import com.slas.healthendar.ui.MainActivity
+import com.slas.healthendar.entity.Reminder
+import com.slas.healthendar.entity.Visit
 import com.slas.healthendar.ui.VisitActivity
 import com.slas.healthendar.ui.elements.TimeLabel
 import com.slas.healthendar.ui.navigation.newActivity
 import com.slas.healthendar.ui.theme.Typography
-import java.sql.Time
-import java.time.LocalTime
 import java.util.TreeMap
 
 val reminderItems = listOf(
-    ReminderDto("One", "Descrp"),
-    ReminderDto("One", "Descrp"),
-    ReminderDto("One", "Descrp"),
-    ReminderDto("One", "Descrp"),
-    ReminderDto("One", "Descrp"),
-    ReminderDto("One", "Descrp"),
-    ReminderDto("One", "Descrp"),
-    ReminderDto("One", "Descrp")
+    Reminder("One", "Descrp"),
+    Reminder("One", "Descrp"),
+    Reminder("One", "Descrp"),
+    Reminder("One", "Descrp"),
+    Reminder("One", "Descrp"),
+    Reminder("One", "Descrp"),
+    Reminder("One", "Descrp"),
+    Reminder("One", "Descrp")
 )
 
 
-val visitsMocked = TreeMap<Int, List<VisitDto>>().also {
+val visitsMocked = TreeMap<Int, List<Visit>>().also {
     it[9*60] = listOf(
-        VisitDto("dr. House", "Neuro", 9*60, arrayOf(2024, 4, 24), "Wroclaw", "123456789", "dr.house@house.pl" , reminderItems),
-        VisitDto("dr. House", "Neuro", 9*60, arrayOf(2024, 4, 24), "Wroclaw", mail="dr.house@house.pl"),
-        VisitDto("dr. House", "Neuro", 9*60, arrayOf(2024, 4, 24), "Wroclaw", "123456789"),
-        VisitDto("dr. House", "Neuro", 9*60, arrayOf(2024, 4, 25), "Wroclaw", "123456789", "dr.house@house.pl"),
-        VisitDto("dr. House", "Neuro", 9*60, arrayOf(2024, 4, 26), "Wroclaw", "123456789", "dr.house@house.pl")
+        Visit("dr. House", "Neuro", 9*60, listOf(2024, 4, 24), "Wroclaw", "123456789", "dr.house@house.pl" , reminderItems),
+        Visit("dr. House", "Neuro", 9*60, listOf(2024, 4, 24), "Wroclaw", mail="dr.house@house.pl"),
+        Visit("dr. House", "Neuro", 9*60, listOf(2024, 4, 24), "Wroclaw", "123456789"),
+        Visit("dr. House", "Neuro", 9*60, listOf(2024, 4, 25), "Wroclaw", "123456789", "dr.house@house.pl"),
+        Visit("dr. House", "Neuro", 9*60, listOf(2024, 4, 26), "Wroclaw", "123456789", "dr.house@house.pl")
     )
     it[600] = listOf(
-        VisitDto("dr. Doolittle", "Vet", 9*60, arrayOf(2024, 4, 24),"Wroclaw", "123456789", "dr.house@house.pl"),
-        VisitDto("dr. Doolittle", "Vet", 9*60, arrayOf(2024, 4, 24),"Wroclaw", mail="dr.house@house.pl"),
-        VisitDto("dr. Doolittle", "Vet", 9*60, arrayOf(2024, 4, 24),"Wroclaw", "123456789"),
-        VisitDto("dr. Doolittle", "Vet", 9*60, arrayOf(2024, 4, 25),"Wroclaw", "123456789", "dr.house@house.pl"),
-        VisitDto("dr. Doolittle", "Vet", 9*60, arrayOf(2024, 4, 26),"Wroclaw", "123456789", "dr.house@house.pl")
+        Visit("dr. Doolittle", "Vet", 9*60, listOf(2024, 4, 24),"Wroclaw", "123456789", "dr.house@house.pl"),
+        Visit("dr. Doolittle", "Vet", 9*60, listOf(2024, 4, 24),"Wroclaw", mail="dr.house@house.pl"),
+        Visit("dr. Doolittle", "Vet", 9*60, listOf(2024, 4, 24),"Wroclaw", "123456789"),
+        Visit("dr. Doolittle", "Vet", 9*60, listOf(2024, 4, 25),"Wroclaw", "123456789", "dr.house@house.pl"),
+        Visit("dr. Doolittle", "Vet", 9*60, listOf(2024, 4, 26),"Wroclaw", "123456789", "dr.house@house.pl")
     )
 }
 
@@ -103,7 +98,7 @@ fun TodayFragment(context: Context) {
 }
 
 @Composable
-private fun ListItem(it: VisitDto) {
+private fun ListItem(it: Visit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

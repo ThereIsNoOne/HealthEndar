@@ -15,12 +15,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.slas.healthendar.entity.ReminderDto
+import com.slas.healthendar.entity.Reminder
 import com.slas.healthendar.ui.theme.Typography
 
 @Composable
 fun ExpandedItem(
-    item: ReminderDto,
+    item: Reminder,
 ) {
     Column(
         modifier = Modifier
@@ -91,7 +91,7 @@ fun ExpandedItem(
 
 @Composable
 fun FoldedItem(
-    item: ReminderDto,
+    item: Reminder,
 ) {
     Column(
         modifier = Modifier

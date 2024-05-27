@@ -1,6 +1,7 @@
 package com.slas.healthendar.ui.view
 
 import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -32,6 +33,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.slas.healthendar.datastore.DataContext
+import com.slas.healthendar.entity.Visit
 import com.slas.healthendar.ui.MainActivity
 import com.slas.healthendar.ui.elements.CancelButton
 import com.slas.healthendar.ui.elements.OkButton
@@ -40,9 +43,14 @@ import com.slas.healthendar.ui.elements.TimePickerDialog
 import com.slas.healthendar.ui.navigation.newActivity
 import com.slas.healthendar.ui.icon.rememberAlarmAdd
 import com.slas.healthendar.ui.theme.Typography
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import java.time.Duration
 import java.util.Calendar
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, DelicateCoroutinesApi::class)
 @Composable
 fun AddVisitFragment(context: Context) {
     var specialization by remember {
@@ -132,8 +140,19 @@ fun AddVisitFragment(context: Context) {
             horizontalArrangement = Arrangement.End
         ) {
             OkButton {
-                // TODO: Verify and pack data
-                newActivity(context, MainActivity::class.java)
+                val visit = packVisit(specialization, doctor, time, localization, date, phone, email)
+                GlobalScope.launch {
+                    DataContext.databaseController.addVisit(
+                        visit = visit,
+                        onSuccess = {
+                            // TODO: Snackbar
+                            newActivity(context, MainActivity::class.java)
+                        },
+                        onError = {
+                            //TODO: Implement snackbar
+                            Log.d("AddingVisit", it)
+                        })
+                }
             }
         }
 
@@ -161,7 +180,12 @@ fun AddVisitFragment(context: Context) {
                     OkButton {
                         showDatePicker = false
                         date = Calendar.getInstance()
-                            .apply { timeInMillis = datePickerState.selectedDateMillis!! }
+                            .apply {
+                                if (datePickerState.selectedDateMillis == null) {
+                                    return@apply
+                                }
+                                timeInMillis = datePickerState.selectedDateMillis!!
+                            }
                     }
                 },
                 dismissButton = {
@@ -176,6 +200,26 @@ fun AddVisitFragment(context: Context) {
         }
     }
 
+}
+
+fun packVisit(
+    specialization: String,
+    doctor: String,
+    time: Int,
+    localization: String,
+    date: Calendar,
+    phone: String,
+    email: String
+): Visit {
+    return Visit(
+        doctor,
+        specialization,
+        time,
+        listOf(date.get(Calendar.DAY_OF_MONTH), date.get(Calendar.MONTH), date.get(Calendar.YEAR)),
+        localization,
+        phone,
+        email,
+    )
 }
 
 @Composable

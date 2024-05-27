@@ -8,19 +8,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.slas.healthendar.R
-import com.slas.healthendar.entity.ReminderDto
+import com.slas.healthendar.entity.Reminder
 import com.slas.healthendar.ui.MainActivity
 import com.slas.healthendar.ui.adapters.ReminderAdapter
 
 val items = listOf(
-    ReminderDto("One", "Descrp"),
-    ReminderDto("One", "Descrp"),
-    ReminderDto("One", "Descrp"),
-    ReminderDto("One", "Descrp"),
-    ReminderDto("One", "Descrp"),
-    ReminderDto("One", "Descrp"),
-    ReminderDto("One", "Descrp"),
-    ReminderDto("One", "Descrp")
+    Reminder("One", 0f),
+    Reminder("One", 0f),
+    Reminder("One", 0f),
+    Reminder("One", 0f),
+    Reminder("One", 0f),
+    Reminder("One", 0f),
+    Reminder("One", 0f),
+    Reminder("One", 0f)
 )
 class ReminderFragment : Fragment() {
 
