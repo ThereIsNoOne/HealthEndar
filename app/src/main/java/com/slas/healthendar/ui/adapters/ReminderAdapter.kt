@@ -14,20 +14,17 @@ class ReminderAdapter(private val reminders: List<Reminder>) : RecyclerView.Adap
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val nameView: TextView
-        private val descView: TextView
         private val remindMeBtn: MaterialButton
         private val doneBtn: MaterialButton
 
         init {
             nameView = view.findViewById(R.id.reminder_name_item)
-            descView = view.findViewById(R.id.reminder_desc_item)
             remindMeBtn = view.findViewById(R.id.reminder_remind_me_button)
             doneBtn = view.findViewById(R.id.reminder_done_button)
         }
 
-        fun bind(name: String, desc: String) {
+        fun bind(name: String) {
             nameView.text = name
-            descView.text = desc
         }
 
     }
@@ -45,6 +42,6 @@ class ReminderAdapter(private val reminders: List<Reminder>) : RecyclerView.Adap
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val reminderDto = reminders[position]
-        holder.bind(reminderDto.title, reminderDto.note)
+        holder.bind(reminderDto.title)
     }
 }

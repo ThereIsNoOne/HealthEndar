@@ -20,14 +20,14 @@ import com.slas.healthendar.ui.elements.FoldedItem
 
 
 val items = listOf(
-    Reminder("One", "Descrp"),
-    Reminder("One", "Descrp"),
-    Reminder("One", "Descrp"),
-    Reminder("One", "Descrp"),
-    Reminder("One", "Descrp"),
-    Reminder("One", "Descrp"),
-    Reminder("One", "Descrp"),
-    Reminder("One", "Descrp")
+    Reminder("One", 0f),
+    Reminder("One", 0f),
+    Reminder("One", 0f),
+    Reminder("One", 0f),
+    Reminder("One", 0f),
+    Reminder("One", 0f),
+    Reminder("One", 0f),
+    Reminder("One", 0f)
 )
 
 @Composable

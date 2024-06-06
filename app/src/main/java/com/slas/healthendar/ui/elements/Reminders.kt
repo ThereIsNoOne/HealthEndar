@@ -37,14 +37,6 @@ fun ExpandedItem(
             color = MaterialTheme.colorScheme.onPrimary
         )
 
-        Text(
-            text = item.note,
-            fontWeight = Typography.labelMedium.fontWeight,
-            fontSize = Typography.labelMedium.fontSize,
-            fontFamily = Typography.labelMedium.fontFamily,
-            color = MaterialTheme.colorScheme.onPrimary
-        )
-
         Row(
             modifier = Modifier
                 .fillMaxWidth()

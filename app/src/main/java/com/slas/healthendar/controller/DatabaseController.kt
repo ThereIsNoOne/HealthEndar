@@ -58,4 +58,8 @@ class DatabaseController(private val connector: IDatabaseConnector) {
         }
         return user.email
     }
+
+    fun updateVisit(visit: Visit) {
+
+    }
 }

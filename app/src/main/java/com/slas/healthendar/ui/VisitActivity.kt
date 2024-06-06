@@ -15,6 +15,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
+import com.slas.healthendar.datastore.DataContext
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -81,7 +82,7 @@ class VisitActivity : ComponentActivity() {
                             if (isDialogOpen) {
                                 AddReminderDialog(onConfirm = {title, time ->
                                     visit.reminders += Reminder(title, time)
-
+                                    DataContext.databaseController.updateVisit(visit)
                                     isDialogOpen = false
                                 }, onDismiss = { isDialogOpen = false })
                             }

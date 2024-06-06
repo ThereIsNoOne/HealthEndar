@@ -28,14 +28,14 @@ import com.slas.healthendar.ui.theme.Typography
 import java.util.TreeMap
 
 val reminderItems = listOf(
-    Reminder("One", "Descrp"),
-    Reminder("One", "Descrp"),
-    Reminder("One", "Descrp"),
-    Reminder("One", "Descrp"),
-    Reminder("One", "Descrp"),
-    Reminder("One", "Descrp"),
-    Reminder("One", "Descrp"),
-    Reminder("One", "Descrp")
+    Reminder("One", 0f),
+    Reminder("One", 0f),
+    Reminder("One", 0f),
+    Reminder("One", 0f),
+    Reminder("One", 0f),
+    Reminder("One", 0f),
+    Reminder("One", 0f),
+    Reminder("One", 0f)
 )
 
 
