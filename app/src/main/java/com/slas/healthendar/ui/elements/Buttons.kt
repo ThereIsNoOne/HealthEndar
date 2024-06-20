@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -34,7 +35,8 @@ fun FloatingAddButton(context: Context, onClick: () -> Unit) {
 
 @Composable
 fun OkButton(onClick: () -> Unit) {
-    TextButton(
+
+    Button(
         onClick = onClick
     ) {
         Text(
@@ -46,7 +48,7 @@ fun OkButton(onClick: () -> Unit) {
 
 @Composable
 fun CancelButton(onClick: () -> Unit) {
-    TextButton(
+    Button(
         onClick = onClick
     ) {
         Text(

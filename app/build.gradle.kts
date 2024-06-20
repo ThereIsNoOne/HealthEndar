@@ -57,6 +57,10 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
     implementation("com.google.firebase:firebase-analytics")
 
+    implementation("androidx.compose.material3:material3:1.2.0-alpha12")
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
+    implementation("com.google.accompanist:accompanist-permissions:0.31.1-alpha")
+
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.core.ktx)
@@ -64,8 +68,10 @@ dependencies {
     implementation(libs.material)
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation(libs.androidx.lifecycle.runtime.ktx)
+//    implementation("sun.bob:mcalendarview:1.0.0")
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
+//    implementation("com.applandeo:material-calendar-view:1.9.0-rc03")
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)

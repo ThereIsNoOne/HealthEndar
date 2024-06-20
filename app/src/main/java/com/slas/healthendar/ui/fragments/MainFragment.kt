@@ -2,6 +2,7 @@ package com.slas.healthendar.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
+//import com.applandeo.materialcalendarview.CalendarView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -19,9 +20,11 @@ import com.slas.healthendar.ui.VisitActivity
 import com.slas.healthendar.ui.adapters.CalendarDayAdapter
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.Calendar
 
 
 class MainFragment : Fragment() {
+
 
     private var selectedDate: List<Int> = DataContext.today()
     private lateinit var adapter: CalendarDayAdapter
@@ -52,6 +55,7 @@ class MainFragment : Fragment() {
                 selectedDate = listOf(day, month, year)
                 getDataSet()
             }
+
         }
     }
 
@@ -105,5 +109,10 @@ class MainFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_main, container, false)
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getDataSet()
     }
 }

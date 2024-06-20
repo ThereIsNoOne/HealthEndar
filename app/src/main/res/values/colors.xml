@@ -9,5 +9,6 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="cs_textcolor">#454545</color>
-<!--    <color name=""-->
+    <color name="bg">#9AC096</color>
+    <!--    <color name=""-->
 </resources>

@@ -49,7 +49,7 @@ fun RemindersFragment() {
                     .clip(shape = RoundedCornerShape(20.dp))
             ) {
                 if (it == index) {
-                    ExpandedItem(items[it])
+//                    ExpandedItem(items[it])
                 } else {
                     FoldedItem(items[it])
                 }

@@ -4,6 +4,7 @@ import android.util.Log
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import com.slas.healthendar.entity.OperationResult
+import com.slas.healthendar.entity.Reminder
 import com.slas.healthendar.entity.Visit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
@@ -97,4 +98,21 @@ class FirestoreConnector : IDatabaseConnector {
                 )
             }
     }
+
+    override suspend fun getReminders(email: String, callback: (String, List<Visit>) -> Unit): Unit =
+        withContext(Dispatchers.IO) {
+            database.collection(email).get()
+                .addOnCompleteListener {task ->
+                    if (!task.isSuccessful) {
+                        Log.d("Exception", task.exception!!.message.toString())
+                        callback(task.exception!!.message.toString(), listOf())
+                        return@addOnCompleteListener
+                    }
+                    callback("Ok", task.result
+                        .map { it.toObject(Visit::class.java) }
+//                        .flatMap { it.reminders }
+                        .toList())
+
+                }
+        }
 }

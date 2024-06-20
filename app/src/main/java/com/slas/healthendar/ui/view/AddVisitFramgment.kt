@@ -2,6 +2,7 @@ package com.slas.healthendar.ui.view
 
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -96,6 +97,8 @@ fun AddVisitFragment(context: Context) {
         OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth(),
+            singleLine = true,
+            maxLines = 1,
             label = { Text(text = "Specialization") },
             value = specialization,
             onValueChange = { specialization = it })
@@ -104,7 +107,9 @@ fun AddVisitFragment(context: Context) {
             modifier = Modifier
                 .fillMaxWidth(),
             label = { Text(text = "Doctor") },
+            singleLine = true,
             value = doctor,
+            maxLines = 1,
             onValueChange = { doctor = it })
 
         TimeInput(time) { showTimePicker = true }
@@ -114,6 +119,8 @@ fun AddVisitFragment(context: Context) {
         OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth(),
+            maxLines = 1,
+            singleLine = true,
             label = { Text(text = "Phone") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             value = phone,
@@ -122,6 +129,8 @@ fun AddVisitFragment(context: Context) {
         OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth(),
+            maxLines = 1,
+            singleLine = true,
             label = { Text(text = "E-Mail") },
             value = email,
             onValueChange = { email = it })
@@ -129,7 +138,9 @@ fun AddVisitFragment(context: Context) {
         OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth(),
+            maxLines = 1,
             label = { Text(text = "Localization") },
+            singleLine = true,
             value = localization,
             onValueChange = { localization = it })
 
@@ -141,15 +152,29 @@ fun AddVisitFragment(context: Context) {
         ) {
             OkButton {
                 val visit = packVisit(specialization, doctor, time, localization, date, phone, email)
+                if (visit.doctor.isBlank()) {
+                    Toast.makeText(context, "Doctor name is blank", Toast.LENGTH_SHORT).show()
+                    return@OkButton
+                }
+
+                if (visit.specialization.isBlank()) {
+                    Toast.makeText(context, "Doctor specialization is blank", Toast.LENGTH_SHORT).show()
+                    return@OkButton
+                }
+
+                if (visit.localization.isBlank()) {
+                    Toast.makeText(context, "Localization is blank", Toast.LENGTH_SHORT).show()
+                    return@OkButton
+                }
                 GlobalScope.launch {
                     DataContext.databaseController.addVisit(
                         visit = visit,
                         onSuccess = {
-                            // TODO: Snackbar
+//                            Toast.makeText(context, "Visit created", Toast.LENGTH_SHORT).show()
                             newActivity(context, MainActivity::class.java)
                         },
                         onError = {
-                            //TODO: Implement snackbar
+                            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
                             Log.d("AddingVisit", it)
                         })
                 }

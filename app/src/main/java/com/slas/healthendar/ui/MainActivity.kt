@@ -1,9 +1,13 @@
 package com.slas.healthendar.ui
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
@@ -11,6 +15,7 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
 import com.slas.healthendar.R
+import com.slas.healthendar.datastore.NotificationContext
 import com.slas.healthendar.ui.fragments.MainFragment
 import com.slas.healthendar.ui.fragments.ReminderFragment
 import com.slas.healthendar.ui.fragments.TodayFragment
@@ -19,6 +24,20 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val notificationChannel = NotificationChannel(
+                NotificationContext.CHANNEL_ID,
+                NotificationContext.CHANNEL_NAME,
+                NotificationManager.IMPORTANCE_HIGH
+            )
+
+            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+
+            notificationManager.createNotificationChannel(notificationChannel)
+        }
+
+
         setContentView(R.layout.activity_main)
         val userId = intent.getStringExtra("uid")
 

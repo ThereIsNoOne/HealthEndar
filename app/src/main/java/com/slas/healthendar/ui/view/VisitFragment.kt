@@ -48,18 +48,7 @@ fun VisitFragment(visit: Visit, dialog: @Composable () -> Unit) {
         IconLabel(Icons.Filled.Phone, if (visit.phone != null) visit.phone!! else "N/A")
         IconLabel(Icons.Filled.MailOutline, if (visit.mail != null) visit.mail!! else "N/A")
         Divider(modifier = Modifier.fillMaxWidth())
-        LazyColumn {
-            items(visit.reminders) {
-                Box(
-                    modifier = Modifier
-                        .padding(10.dp)
-                        .clip(shape = RoundedCornerShape(20.dp))
-                ) {
-                    ExpandedItem(it)
-                }
 
-            }
-        }
 
         dialog()
 

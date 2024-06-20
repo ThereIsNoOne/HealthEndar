@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxHeight="@dimen/maxAppBarHeight"
-        android:background="#D2DBD1"
+        android:background="@color/bg"
         android:id="@+id/toolbar_wrapper"
         android:fitsSystemWindows="true">
 
@@ -44,7 +44,7 @@
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#D2DBD1"
+        android:background="@color/bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

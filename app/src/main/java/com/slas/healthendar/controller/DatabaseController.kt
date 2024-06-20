@@ -1,9 +1,11 @@
 package com.slas.healthendar.controller
 
+import android.provider.CalendarContract.Reminders
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.slas.healthendar.computation.db.IDatabaseConnector
 import com.slas.healthendar.entity.OperationResult
+import com.slas.healthendar.entity.Reminder
 import com.slas.healthendar.entity.Visit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -30,14 +32,19 @@ class DatabaseController(private val connector: IDatabaseConnector) {
             }
         }
 
-    suspend fun addReminder(visit: Visit, onSuccess: () -> Unit, onError: (String) -> Unit) = withContext(Dispatchers.Main){
-        val email = checkUser() ?: return@withContext
+    suspend fun addReminder(visit: Visit, onSuccess: () -> Unit, onError: (String) -> Unit) =
+        withContext(Dispatchers.Main) {
+            val email = checkUser() ?: return@withContext
 
-        connector.updateVisit(email, visit, onSuccess, onError)
-    }
+            connector.updateVisit(email, visit, onSuccess, onError)
+        }
 
 
-    suspend fun getVisit(date: List<Int>, onSuccess: (Array<Visit>) -> Unit, onError: (String) -> Unit) =
+    suspend fun getVisit(
+        date: List<Int>,
+        onSuccess: (Array<Visit>) -> Unit,
+        onError: (String) -> Unit
+    ) =
         withContext(Dispatchers.Main) {
             val email = checkUser() ?: return@withContext
 
@@ -59,7 +66,17 @@ class DatabaseController(private val connector: IDatabaseConnector) {
         return user.email
     }
 
-    fun updateVisit(visit: Visit) {
+    suspend fun getReminders(onSuccess: (List<Visit>) -> Unit, onError: (String) -> Unit) =
+        withContext(Dispatchers.Main) {
+            val email = checkUser() ?: return@withContext
 
-    }
+            connector.getReminders(email) {message, visits ->
+                if (message == "Ok") {
+                    onSuccess(visits)
+                    return@getReminders
+                }
+                onError(message)
+            }
+        }
+
 }

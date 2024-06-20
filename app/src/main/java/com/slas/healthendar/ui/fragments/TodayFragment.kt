@@ -59,4 +59,9 @@ class TodayFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_today, container, false)
     }
 
+    override fun onResume() {
+        super.onResume()
+        setRecyclerView()
+    }
+
 }

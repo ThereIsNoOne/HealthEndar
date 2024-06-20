@@ -95,7 +95,6 @@ fun CalendarFragment(
                         )
                 } else {
                     CalendarView(it).also {
-                        // TODO: Act on date change
 //                        it.setOnDateChangeListener
                     }
                 }
